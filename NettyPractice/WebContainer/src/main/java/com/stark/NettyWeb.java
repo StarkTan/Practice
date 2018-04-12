@@ -1,4 +1,4 @@
-package com.stark.container;
+package com.stark;
 
 import com.stark.container.server.WebServer;
 
