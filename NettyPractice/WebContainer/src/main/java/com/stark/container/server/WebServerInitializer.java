@@ -1,5 +1,6 @@
 package com.stark.container.server;
 
+import com.stark.container.handler.MsgReadHandler;
 import com.stark.container.handler.RequestHandler;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelPipeline;
@@ -31,6 +32,7 @@ public class WebServerInitializer extends ChannelInitializer<SocketChannel> {
         pipeline.addLast(new HttpServerCodec());//是request的编码和response解码的组合
         pipeline.addLast(new HttpObjectAggregator(65536)); //http消息的整合
         pipeline.addLast(new ChunkedWriteHandler());//防止数据量过大造成数据MMO
+        pipeline.addLast(new MsgReadHandler());//读取交互信息
         pipeline.addLast(new RequestHandler());//数据处理类
     }
 }

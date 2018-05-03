@@ -28,14 +28,10 @@ public class RequestHandler extends SimpleChannelInboundHandler<FullHttpRequest>
             return;
         }
 
-        if (request.method() != GET) {
-            sendError(ctx, METHOD_NOT_ALLOWED);
-            return;
-        }
-
-        final String uri = request.uri();
-        System.out.println(uri);
-
+//        if (request.method() != GET) {
+//            sendError(ctx, METHOD_NOT_ALLOWED);
+//            return;
+//        }
         NettyHttpRequest nettyRequest = new NettyHttpRequest(request);
         NettyHttpResponse nettyResponse = new NettyHttpResponse();
         Servlet servlet = new TestServlet();

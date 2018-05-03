@@ -35,9 +35,8 @@ public class HttpClient {
             // Start the client.
             ChannelFuture f = bootstrap.connect(host, port).sync();
 
-            DefaultFullHttpRequest request = new DefaultFullHttpRequest(HttpVersion.HTTP_1_1, HttpMethod.GET,
+            DefaultFullHttpRequest request = new DefaultFullHttpRequest(HttpVersion.HTTP_1_1, HttpMethod.POST,
                     "/test", Unpooled.wrappedBuffer("test".getBytes("UTF-8")));
-
             // 构建http请求
             request.headers().set(HttpHeaderNames.HOST, host);
             request.headers().set(HttpHeaderNames.CONNECTION, HttpHeaderValues.KEEP_ALIVE);
