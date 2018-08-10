@@ -48,8 +48,6 @@ public class HttpClient {
         } finally {
             workGroup.shutdownGracefully();
         }
-
-
     }
 
     public static void main(String[] args) throws Exception {
