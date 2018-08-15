@@ -6,7 +6,11 @@
 
     <groupId>StarkTan</groupId>
     <artifactId>SpringBootPractice</artifactId>
+    <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
+    <modules>
+        <module>Thymeleaf</module>
+    </modules>
 
     <properties>
         <java.version>1.8</java.version>
@@ -17,8 +21,6 @@
         <artifactId>spring-boot-starter-parent</artifactId>
         <version>2.0.3.RELEASE</version>
     </parent>
-
-
 
     <build>
         <plugins>
