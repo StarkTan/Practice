@@ -11,6 +11,7 @@
     <modules>
         <module>Thymeleaf</module>
         <module>MyBatis</module>
+        <module>Hibernate</module>
     </modules>
 
     <properties>
