@@ -12,6 +12,7 @@
         <module>Thymeleaf</module>
         <module>MyBatis</module>
         <module>Hibernate</module>
+        <module>MongoDB</module>
     </modules>
 
     <properties>
