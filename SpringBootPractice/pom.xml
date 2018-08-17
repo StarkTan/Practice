@@ -14,6 +14,7 @@
         <module>Hibernate</module>
         <module>MongoDB</module>
         <module>RESTful</module>
+        <module>Shiro</module>
     </modules>
 
     <properties>
