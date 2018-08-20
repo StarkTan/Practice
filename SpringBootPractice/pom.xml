@@ -16,6 +16,7 @@
         <module>RESTful</module>
         <module>Shiro</module>
         <module>Swagger2</module>
+        <module>JWT</module>
     </modules>
 
     <properties>
