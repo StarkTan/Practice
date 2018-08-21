@@ -1,7 +1,9 @@
 package com.stark.jpa.config;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.boot.jdbc.DataSourceBuilder;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 
@@ -11,9 +13,11 @@ import javax.sql.DataSource;
 @Configuration
 public class DruidDataSourceConfig {
 
-    @ConfigurationProperties(prefix = "spring.datasource")
+    @ConfigurationProperties(prefix = "spring.datasource.jpa")
     @Primary
+    @Bean
     public DataSource dataSource() {
+        System.out.println("test");
         return DataSourceBuilder.create().build();
     }
 
