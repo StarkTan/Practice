@@ -11,7 +11,7 @@ xncoding:
   heartbeat-timeout: 10 # 机具心跳报告超时时间 单位：分钟
 
 ###################  项目启动端口  ###################
-server.port: 8092
+server.port: 8099
 
 ###################  spring配置  ###################
 spring:
@@ -69,9 +69,9 @@ spring:
 xncoding:
   excel-path: E:/home/
   files-path: E:/home/
-  files-url-prefix: https://show.xncoding.net/files/ # 文件访问URL前缀
+  files-url-prefix: https://show.stark.net/files/ # 文件访问URL前缀
   pics-path: E:/home/
-  pics-url-prefix: https://show.xncoding.net/pics/ # 图片访问URL前缀
+  pics-url-prefix: https://show.stark.net/pics/ # 图片访问URL前缀
   posapi-url-prefix: http://127.0.0.1:9095
 
 

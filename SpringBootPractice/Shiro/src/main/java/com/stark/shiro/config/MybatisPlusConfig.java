@@ -20,7 +20,7 @@ import javax.annotation.Resource;
 @EnableTransactionManagement(order = 2)
 @MapperScan(basePackages = {
         "com.stark.shiro.common.repository",
-        "com.xncoding.pos.dao.repository"})
+        "com.stark.shiro.repository"})
 public class MybatisPlusConfig {
 
     @Resource
