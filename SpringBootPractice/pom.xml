@@ -19,6 +19,7 @@
         <module>JWT</module>
         <module>MultiSource</module>
         <module>JPA</module>
+        <module>Schedule</module>
     </modules>
 
     <properties>
