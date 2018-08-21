@@ -1,22 +1,23 @@
 package com.stark.jpa.config;
 
-import com.alibaba.druid.pool.DruidDataSource;
-import lombok.Getter;
-import lombok.Setter;
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.context.annotation.Bean;
+import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 
 import javax.sql.DataSource;
-import java.sql.SQLException;
 
-@ConfigurationProperties(prefix = "spring.datasource")
-@Getter
-@Setter
+
 @Configuration
 public class DruidDataSourceConfig {
-    private String url;
+
+    @ConfigurationProperties(prefix = "spring.datasource")
+    @Primary
+    public DataSource dataSource() {
+        return DataSourceBuilder.create().build();
+    }
+
+    /*private String url;
     private String username;
     private String password;
     private String driverClassName;
@@ -65,5 +66,5 @@ public class DruidDataSourceConfig {
         }
         datasource.setConnectionProperties(connectionProperties);
         return datasource;
-    }
+    }*/
 }
