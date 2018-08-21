@@ -43,7 +43,7 @@ public class VersionResult {
     /**
      * 新版本下载地址
      */
-    @ApiModelProperty(value = "新版本下载地址", name = "downloadUrl", example = "http://xncoding.net/files/行政收费_1.3.0.apk")
+    @ApiModelProperty(value = "新版本下载地址", name = "downloadUrl", example = "http://stark.net/files/行政收费_1.3.0.apk")
     private String downloadUrl;
 
     public boolean isFindNew() {

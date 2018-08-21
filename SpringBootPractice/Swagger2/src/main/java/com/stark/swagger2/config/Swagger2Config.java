@@ -28,7 +28,7 @@ public class Swagger2Config {
                 .forCodeGeneration(true)
                 .select()
                 // 指定controller存放的目录路径
-                .apis(RequestHandlerSelectors.basePackage("com.xncoding.jwt.api"))
+                .apis(RequestHandlerSelectors.basePackage("com.stark.jwt.api"))
 //                .paths(PathSelectors.ant("/api/v1/*"))
                 .paths(PathSelectors.any())
                 .build();
