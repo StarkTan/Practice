@@ -23,6 +23,7 @@
         <module>WebSocket</module>
         <module>SocketIO</module>
         <module>Asyn</module>
+        <module>AOP</module>
     </modules>
 
     <properties>
