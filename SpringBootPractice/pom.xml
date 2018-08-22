@@ -21,6 +21,8 @@
         <module>JPA</module>
         <module>Schedule</module>
         <module>WebSocket</module>
+        <module>SocketIO</module>
+        <module>Asyn</module>
     </modules>
 
     <properties>
