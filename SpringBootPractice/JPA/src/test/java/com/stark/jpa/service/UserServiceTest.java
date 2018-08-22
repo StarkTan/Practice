@@ -21,13 +21,17 @@ public class UserServiceTest {
     private UserService service;
 
     @Test
-    public void test() {
+    public void test() throws InterruptedException {
         User user1 = new User(1L, "name1", 10, true);
         User user2 = new User(2L, "name2", 20, false);
         service.add(user1);
         service.add(user2);
         assertEquals(service.findAll().size(), 2);
         assertEquals(service.get(1L).getName(), user1.getName());
+        assertEquals(service.get(2L).getName(), user2.getName());
+        //测试Redis
+        assertEquals(service.get(1L).getName(), user1.getName());
+        Thread.sleep(11000);
         assertEquals(service.get(2L).getName(), user2.getName());
         assertNull(service.get(3L));
         service.remove(user1);

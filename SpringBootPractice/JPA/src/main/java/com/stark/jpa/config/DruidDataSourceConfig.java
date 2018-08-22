@@ -17,7 +17,6 @@ public class DruidDataSourceConfig {
     @Primary
     @Bean
     public DataSource dataSource() {
-        System.out.println("test");
         return DataSourceBuilder.create().build();
     }
 
