@@ -28,6 +28,7 @@ public class DemoSocketServer {
                 if (!token.equals("87df42a424c48313ef6063e6a5c63297")) {
                     client.disconnect();//校验token示例
                 }
+                server.getBroadcastOperations().sendEvent(Socket.EVENT_MESSAGE, "hi");
                 System.out.println("sessionId:" + client.getSessionId() + ",token:" + token);
             }
         });
@@ -35,7 +36,7 @@ public class DemoSocketServer {
         server.addEventListener(Socket.EVENT_MESSAGE, String.class, new DataListener<String>() {
             public void onData(SocketIOClient client, String data, AckRequest ackSender) throws Exception {
                 System.out.println("client data:" + data);
-                server.getBroadcastOperations().sendEvent(Socket.EVENT_MESSAGE, "hi");
+                server.getBroadcastOperations().sendEvent(Socket.EVENT_MESSAGE, data);
             }
         });
 
