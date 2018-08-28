@@ -12,6 +12,8 @@ import org.springframework.test.context.junit4.SpringRunner;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.junit.Assert.assertEquals;
+
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = {Application.class})
 public class RoleServiceTest {
@@ -38,15 +40,15 @@ public class RoleServiceTest {
         resourceService.save(resource2);
         role1 = roleService.save(role1);
         String id = role1.getId();
-        System.out.println(role1.getResources().size());
+        assertEquals(role1.getResources().size(), 2);
         roleService.flush();
         role1.getResources().remove(resource1);
         role1 = roleService.save(role1);
         resourceService.delete(resource1);
         resourceService.flush();
-        System.out.println(roleService.getById(id).getResources().size());
+        assertEquals(roleService.getById(id).getResources().size(), 1);
         roleService.delete(role1);
-        System.out.println(roleService.getAll().size());
+        assertEquals(roleService.getAll().size(), 0);
 
     }
 }
