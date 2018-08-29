@@ -24,7 +24,7 @@ public class RoleServiceTest {
     private ResourceService resourceService;
 
     @Test
-    public void testResourceService() {
+    public void testResourceService() throws InterruptedException {
         Resource resource1 = new Resource();
         resource1.setName("resource1");
         Resource resource2 = new Resource();
@@ -46,6 +46,8 @@ public class RoleServiceTest {
         role1 = roleService.save(role1);
         resourceService.delete(resource1);
         resourceService.flush();
+        assertEquals(roleService.getById(id).getResources().size(), 1);
+        roleService.getById(id).getResources().clear();
         assertEquals(roleService.getById(id).getResources().size(), 1);
         roleService.delete(role1);
         assertEquals(roleService.getAll().size(), 0);
