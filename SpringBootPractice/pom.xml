@@ -24,6 +24,7 @@
         <module>SocketIO</module>
         <module>Asyn</module>
         <module>AOP</module>
+        <module>Redis</module>
     </modules>
 
     <properties>
