@@ -18,7 +18,7 @@
         <module>Swagger2</module>
         <module>JWT</module>
         <module>MultiSource</module>
-        <module>JPA</module>
+        <module>JPARedis</module>
         <module>Schedule</module>
         <module>WebSocket</module>
         <module>SocketIO</module>
