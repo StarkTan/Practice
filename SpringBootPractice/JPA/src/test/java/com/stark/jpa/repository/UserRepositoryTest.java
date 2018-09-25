@@ -1,15 +1,17 @@
 package com.stark.jpa.repository;
 
+import com.stark.jpa.common.entity.PageRequest;
+import com.stark.jpa.common.entity.PageResponse;
+import com.stark.jpa.common.utils.RepositoryUtils;
+import com.stark.jpa.common.utils.RepositoryUtilsImp;
 import com.stark.jpa.entity.User;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import static org.junit.Assert.*;
+import java.util.*;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -19,14 +21,31 @@ public class UserRepositoryTest {
     private UserRepository repository;
 
     @Test
-    public void testExample() throws Exception {
+    public void testExample() {
+        List<User> users = new ArrayList<>();
+        for (int i = 0; i < 100; i++) {
+            users.add(new User("name" + i % 10, 20 + i % 10, i));
+        }
+        List<User> users1 = repository.saveAll(users);
+        System.out.println(users1.size());
 
-        User user = new User();
-        user.setAge(123);
-        user.setName("123");
+        Map<String, Object[]> paramsMap = new HashMap<>();
+        paramsMap.put("name_s_in", new Object[]{"name1", "name2", "name4", "name5"});
+        //paramsMap.put("name_s_equal", new Object[]{"name3"});
+        Map<String, String> sortMap = new HashMap<>();
+        sortMap.put("num", "desc");
+        /*Specification<User> userSpecification = repositoryUtils.getConditionSpec(paramsMap);
+        userSpecification = userSpecification.and(repositoryUtils.getSortSpec(sortMap));
 
-        User save = repository.save(user);
-        System.out.println(repository.test());
-        assertNotNull(save.getId());
+        List<User> all = repository.findAll(userSpecification);*/
+        PageRequest request = new PageRequest();
+        request.setPageSize(30);
+        request.setPageNum(2);
+        request.setParamMap(paramsMap);
+        request.setSortMap(sortMap);
+
+        PageResponse pageResponse = repository.pageQuery(request);
+
+        System.out.println(pageResponse);
     }
 }

@@ -1,4 +1,4 @@
-package com.stark.jpa.common;
+package com.stark.jpa.common.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.support.JpaRepositoryFactoryBean;

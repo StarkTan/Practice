@@ -1,6 +1,6 @@
 package com.stark.jpa;
 
-import com.stark.jpa.common.BaseRepositoryFactoryBean;
+import com.stark.jpa.common.repository.BaseRepositoryFactoryBean;
 import com.stark.jpa.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
