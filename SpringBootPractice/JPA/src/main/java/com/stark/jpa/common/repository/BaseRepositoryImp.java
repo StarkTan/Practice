@@ -31,11 +31,6 @@ public class BaseRepositoryImp<T, ID> extends SimpleJpaRepository<T, ID> impleme
     private Class<T> entityClass;
 
     @Override
-    public String test() {
-        return "TEST";
-    }
-
-    @Override
     public PageResponse<T> pageQuery(PageRequest request) {
         CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
         CriteriaQuery<T> cq = criteriaBuilder.createQuery(entityClass);
