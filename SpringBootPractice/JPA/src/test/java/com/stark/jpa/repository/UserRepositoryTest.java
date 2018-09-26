@@ -9,8 +9,10 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import javax.persistence.criteria.*;
 import java.util.*;
 
 @RunWith(SpringRunner.class)
@@ -45,7 +47,15 @@ public class UserRepositoryTest {
         request.setSortMap(sortMap);
 
         PageResponse pageResponse = repository.pageQuery(request);
-
         System.out.println(pageResponse);
+
+        User one = repository.findLimitOne((Specification<User>) (root, query, criteriaBuilder) -> {
+            List<Order> orders = new ArrayList<>();
+            orders.add(criteriaBuilder.desc(root.get("num")));
+            query.orderBy(orders);
+            //返回无用空条件
+            return criteriaBuilder.and();
+        });
+        System.out.println(one.getNum());
     }
 }

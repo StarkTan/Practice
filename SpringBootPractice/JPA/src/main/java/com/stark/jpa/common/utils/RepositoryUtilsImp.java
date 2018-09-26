@@ -5,6 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.data.jpa.domain.Specification;
 
 import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.Expression;
 import javax.persistence.criteria.Order;
 import javax.persistence.criteria.Predicate;
 import java.util.*;
@@ -131,7 +132,8 @@ public class RepositoryUtilsImp<T> implements RepositoryUtils<T> {
                 }
             }
             query.orderBy(orders);
-            return query.getRestriction();
+            //返回无用空条件
+            return criteriaBuilder.and();
         };
     }
 }

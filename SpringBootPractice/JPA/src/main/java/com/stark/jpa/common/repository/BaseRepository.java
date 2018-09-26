@@ -14,6 +14,9 @@ public interface BaseRepository<T, ID> extends JpaRepository<T, ID>, JpaSpecific
 
     PageResponse pageQuery(PageRequest request);
 
+    T findLimitOne(Specification<T> specification);
+
+
     //equal
     default List<T> equal(String attName, Object value) {
         return findAll((Specification<T>) (root, query, criteriaBuilder) -> criteriaBuilder.equal(root.get(attName), value));

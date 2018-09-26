@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BaseRepositoryImp<T, ID> extends SimpleJpaRepository<T, ID> implements BaseRepository<T, ID> {
+
     public BaseRepositoryImp(Class<T> domainClass, EntityManager entityManager) {
         super(domainClass, entityManager);
         this.entityManager = entityManager;
@@ -39,6 +40,7 @@ public class BaseRepositoryImp<T, ID> extends SimpleJpaRepository<T, ID> impleme
         //查询条件
         Specification<T> conditionSpec = utils.getConditionSpec(request.getParamMap());
         conditionSpec = conditionSpec.and(utils.getSortSpec(request.getSortMap()));
+        //Specification<T> conditionSpec = utils.getSortSpec(request.getSortMap());
         //获取总数
         long total = count(conditionSpec);
 
@@ -53,5 +55,20 @@ public class BaseRepositoryImp<T, ID> extends SimpleJpaRepository<T, ID> impleme
         List<T> resultList = total > firstResult ? (List<T>) query.getResultList() : new ArrayList<>();
 
         return new PageResponse<>(request, resultList, total);
+    }
+
+    @Override
+    public T findLimitOne(Specification<T> specification) {
+        CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+        CriteriaQuery<T> cq = criteriaBuilder.createQuery(entityClass);
+        Root<T> root = cq.from(entityClass);
+
+        cq.select(root);
+        cq.where(specification.toPredicate(root, cq, criteriaBuilder));
+        Query query = entityManager.createQuery(cq);
+
+        query.setMaxResults(1);
+        List<T> resultList = query.getResultList();
+        return resultList.isEmpty() ? null : resultList.get(0);
     }
 }
