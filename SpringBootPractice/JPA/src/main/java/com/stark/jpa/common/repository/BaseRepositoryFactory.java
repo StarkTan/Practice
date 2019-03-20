@@ -1,6 +1,7 @@
 package com.stark.jpa.common.repository;
 
 import org.springframework.data.jpa.repository.support.JpaRepositoryFactory;
+import org.springframework.data.jpa.repository.support.JpaRepositoryImplementation;
 import org.springframework.data.repository.core.RepositoryInformation;
 import org.springframework.data.repository.core.RepositoryMetadata;
 
@@ -9,15 +10,12 @@ import java.io.Serializable;
 
 public class BaseRepositoryFactory<T, I extends Serializable> extends JpaRepositoryFactory {
 
-    private final EntityManager em;
-
-    public BaseRepositoryFactory(EntityManager em) {
+    BaseRepositoryFactory(EntityManager em) {
         super(em);
-        this.em = em;
     }
 
     @Override
-    protected Object getTargetRepository(RepositoryInformation information) {
+    protected JpaRepositoryImplementation<?, ?> getTargetRepository(RepositoryInformation information, EntityManager em) {
 
         return new BaseRepositoryImp<T, I>((Class<T>) information.getDomainType(), em);
     }

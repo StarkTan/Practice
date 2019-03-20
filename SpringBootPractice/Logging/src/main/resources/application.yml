@@ -1,0 +1,8 @@
+server:
+  port: 8080
+spring:
+  mvc:
+    favicon:
+      enabled: false
+logging:
+  file: D://log.log
