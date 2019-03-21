@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
+<script type="text/javascript" src="lib/sockjs.min.js"></script>
 <body>
 Use WebSocket With Html5<br/><br/>
 <table>
@@ -31,15 +32,12 @@ Use WebSocket With Html5<br/><br/>
 </body>
 <script type="text/javascript">
     const map = {};
-    if (!'WebSocket' in window) {
-        alert('Not Support WebSocket')
-    } else {
-        map['message1'] = new WebSocket('ws://' + window.location.host + '/test');
-        map['message2'] = new WebSocket('ws://' + window.location.host + '/test');
-    }
+    map['message1'] = new SockJS('http://' + window.location.host + '/sockjs/test');
+    map['message2'] = new SockJS('http://' + window.location.host + '/sockjs/test');
+
     window.onbeforeunload = function () {
-        map['message1'].close();
-        map['message2'].close();
+        websocketOne.close();
+        websocketTwo.close();
     };
 
     function setMessageInnerHTML(type, innerHTML) {
@@ -63,10 +61,6 @@ Use WebSocket With Html5<br/><br/>
     }
 
     function send(textId, type) {
-        if (map[type].readyState !== map[type].OPEN) {
-            alert('websocket not open!');
-            return
-        }
         var message = document.getElementById(textId).value;
         map[type].send(message);
     }
@@ -75,7 +69,7 @@ Use WebSocket With Html5<br/><br/>
         if (map[type].readyState !== map[type].CLOSED) {
             map[type].close();
         }
-        map[type] = new WebSocket('ws://' + window.location.host + '/test');
+        map[type] = new SockJS('http://' + window.location.host + '/sockjs/test');
         initWebsocket(type)
     }
 

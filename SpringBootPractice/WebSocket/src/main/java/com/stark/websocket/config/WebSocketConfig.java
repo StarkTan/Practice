@@ -1,6 +1,7 @@
 package com.stark.websocket.config;
 
 import com.stark.websocket.handler.HandlerContainer;
+import com.stark.websocket.handler.SockJSTestHandler;
 import com.stark.websocket.handler.TestHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -24,12 +25,22 @@ public class WebSocketConfig implements WebSocketConfigurer {
         //注册节点
         webSocketHandlerRegistry.addHandler(testWebSocketHandler(), "/test")
                 .addInterceptors(new HttpSessionHandshakeInterceptor());
+        webSocketHandlerRegistry.addHandler(sockJSTestWebSocketHandler(), "/sockjs/test")
+                .addInterceptors(new HttpSessionHandshakeInterceptor())
+                .withSockJS();
     }
 
     @Bean
     public WebSocketHandler testWebSocketHandler() {
         TestHandler myHandler = new TestHandler();
         HandlerContainer.testHandler = myHandler;
+        return myHandler;
+    }
+
+    @Bean
+    public WebSocketHandler sockJSTestWebSocketHandler() {
+        SockJSTestHandler myHandler = new SockJSTestHandler();
+        HandlerContainer.sockJSTestHandler = myHandler;
         return myHandler;
     }
 }
