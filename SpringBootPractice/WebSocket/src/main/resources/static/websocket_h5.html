@@ -11,16 +11,18 @@ Use WebSocket With Html5<br/><br/>
         <td valign="top">
             <div style="width: 500px;">
                 <label for="text1">Client1: </label><input id="text1" type="text"/>
-                <button onclick="send('text1',websocketOne)">Send</button>
-                <button onclick="closeWebSocket(websocketOne)">Close</button>
+                <button onclick="send('text1','message1')">Send</button>
+                <button onclick="closeWebSocket('message1')">Close</button>
+                <button onclick="reconnect('message1')">Reconn</button>
                 <span id="message1"></span>
             </div>
         </td>
         <td valign="top">
             <div style="width: 500px;">
                 <label for="text2">Client2: </label><input id="text2" type="text"/>
-                <button onclick="send('text2',websocketTwo)">Send</button>
-                <button onclick="closeWebSocket(websocketTwo)">Close</button>
+                <button onclick="send('text2','message2')">Send</button>
+                <button onclick="closeWebSocket('message2')">Close</button>
+                <button onclick="reconnect('message2')">Reconn</button>
                 <span id="message2"></span>
             </div>
         </td>
@@ -28,16 +30,12 @@ Use WebSocket With Html5<br/><br/>
 </table>
 </body>
 <script type="text/javascript">
-    let websocketOne;
-    let websocketTwo;
     const map = {};
     if (!'WebSocket' in window) {
         alert('Not Support WebSocket')
     } else {
-        websocketOne = new WebSocket('ws://' + window.location.host + '/test');
-        websocketTwo = new WebSocket('ws://' + window.location.host + '/test');
-        map['message1'] = websocketOne;
-        map['message2'] = websocketTwo;
+        map['message1'] = new WebSocket('ws://' + window.location.host + '/test');
+        map['message2'] = new WebSocket('ws://' + window.location.host + '/test');
     }
     window.onbeforeunload = function () {
         websocketOne.close();
@@ -60,17 +58,25 @@ Use WebSocket With Html5<br/><br/>
         }
     }
 
-    function closeWebSocket(websocket) {
-        websocket.close();
+    function closeWebSocket(type) {
+        map[type].close();
     }
 
-    function send(textId, websocket) {
-        if (websocket.readyState !== websocket.OPEN) {
+    function send(textId, type) {
+        if (map[type].readyState !== map[type].OPEN) {
             alert('websocket not open!');
             return
         }
         var message = document.getElementById(textId).value;
-        websocket.send(message);
+        map[type].send(message);
+    }
+
+    function reconnect(type) {
+        if (map[type].readyState !== map[type].CLOSED) {
+            map[type].close();
+        }
+        map[type] = new WebSocket('ws://' + window.location.host + '/test');
+        initWebsocket(type)
     }
 
     initWebsocket('message1');
