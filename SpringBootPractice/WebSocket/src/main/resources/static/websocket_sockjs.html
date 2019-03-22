@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>WebSocket</title>
 </head>
 <script type="text/javascript" src="lib/sockjs.min.js"></script>
 <body>
@@ -36,8 +36,8 @@ Use WebSocket With Html5<br/><br/>
     map['message2'] = new SockJS('http://' + window.location.host + '/sockjs/test');
 
     window.onbeforeunload = function () {
-        websocketOne.close();
-        websocketTwo.close();
+        map['message1'].close();
+        map['message2'].close();
     };
 
     function setMessageInnerHTML(type, innerHTML) {
