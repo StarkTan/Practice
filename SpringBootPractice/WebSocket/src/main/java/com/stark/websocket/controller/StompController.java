@@ -9,6 +9,7 @@ import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.messaging.simp.annotation.SubscribeMapping;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.util.HtmlUtils;
 
 @Controller
@@ -25,6 +26,7 @@ public class StompController {
     }
 
     @RequestMapping("/sendall")
+    @ResponseBody
     public void sendAll() {
         template.convertAndSend("/topic/greetings", new Greeting("Send All"));
     }
