@@ -1,4 +1,4 @@
-package com.stark.websocket.client;
+package com.stark.websocket;
 
 import org.springframework.web.socket.*;
 import org.springframework.web.socket.client.standard.StandardWebSocketClient;

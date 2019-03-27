@@ -1,4 +1,4 @@
-package com.stark.websocket.client;
+package com.stark.websocket;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -46,50 +46,50 @@ public class StompApp {
         stompClient.connect(url, myHandler);
         try {
             latch.await(100, TimeUnit.SECONDS);
-        }
-        catch (InterruptedException e) {
+        } catch (InterruptedException e) {
             e.printStackTrace();
         }
     }
+
+    static class MyStompSessionHandler extends StompSessionHandlerAdapter {
+        private CountDownLatch latch;
+
+        public MyStompSessionHandler(CountDownLatch latch) {
+            this.latch = latch;
+        }
+
+        @Override
+        public void afterConnected(StompSession session,
+                                   StompHeaders connectedHeaders) {
+            System.out.println("StompHeaders: " + connectedHeaders.toString());
+            session.subscribe("/topic/greetings", new StompFrameHandler() {
+                @Override
+                public Type getPayloadType(StompHeaders headers) {
+                    return Greeting.class;
+                }
+
+                @Override
+                public void handleFrame(StompHeaders headers, Object payload) {
+                    Greeting greeting = (Greeting) payload;
+                    System.out.println(greeting.getContent());
+                    //latch.countDown();
+                    //session.disconnect();
+                }
+            });
+            session.send("/app/hello", new HelloMessage("Dave"));
+        }
+
+        @Override
+        public void handleException(StompSession session, StompCommand command,
+                                    StompHeaders headers, byte[] payload, Throwable exception) {
+            System.out.println(exception.getMessage());
+        }
+
+        @Override
+        public void handleTransportError(StompSession session,
+                                         Throwable exception) {
+            System.out.println("transport error.");
+        }
+    }
 }
 
-class MyStompSessionHandler extends StompSessionHandlerAdapter {
-    private CountDownLatch latch;
-
-    public MyStompSessionHandler(CountDownLatch latch) {
-        this.latch = latch;
-    }
-
-    @Override
-    public void afterConnected(StompSession session,
-                               StompHeaders connectedHeaders) {
-        System.out.println("StompHeaders: " + connectedHeaders.toString());
-        session.subscribe("/topic/greetings", new StompFrameHandler() {
-            @Override
-            public Type getPayloadType(StompHeaders headers) {
-                return Greeting.class;
-            }
-
-            @Override
-            public void handleFrame(StompHeaders headers, Object payload) {
-                Greeting greeting = (Greeting) payload;
-                System.out.println(greeting.getContent());
-                //latch.countDown();
-                //session.disconnect();
-            }
-        });
-        session.send("/app/hello", new HelloMessage("Dave"));
-    }
-
-    @Override
-    public void handleException(StompSession session, StompCommand command,
-                                StompHeaders headers, byte[] payload, Throwable exception) {
-        System.out.println(exception.getMessage());
-    }
-
-    @Override
-    public void handleTransportError(StompSession session,
-                                     Throwable exception) {
-        System.out.println("transport error.");
-    }
-}

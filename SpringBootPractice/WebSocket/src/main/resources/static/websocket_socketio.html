@@ -1,0 +1,36 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>Websocket</title>
+    <script type="text/javascript" src="lib/jquery.min.js"></script>
+    <script type="text/javascript" src="lib/socket.io.min.js"></script>
+    <script type="text/javascript" charset="utf-8">
+    $(document).ready(function() {
+        var socket = io.connect('http://localhost:8000');
+        // 连接成功事件
+        socket.on('connect', function() {
+            //推送消息
+            socket.emit('hello', 'connected!');
+        });
+        //监听服务推送
+        socket.on('message', function(msg) {
+            $('#log').append('<br>' + $('<div/>').text('Received #' + ': ' + msg).html());
+        });
+
+        $('form#emit').submit(function(event) {
+                socket.emit('hello',  $('#emit_data').val());
+                return false;
+            });
+    });
+
+    </script>
+</head>
+<body>
+    <h2>WebSokect</h2>
+    <form id="emit" method="POST" action='#'>
+        <input type="text" name="emit_data" id="emit_data" placeholder="Message">
+        <input type="submit" value="Echo">
+    </form>
+    <div id='log'></div>
+</body>
+</html>
