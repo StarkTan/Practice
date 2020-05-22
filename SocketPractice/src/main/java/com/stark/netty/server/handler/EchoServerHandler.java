@@ -1,4 +1,4 @@
-package com.stark.netty;
+package com.stark.netty.server.handler;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
@@ -12,8 +12,8 @@ public class EchoServerHandler extends ChannelInboundHandlerAdapter {
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) {
         String body = (String) msg;
-        ByteBuf echo = Unpooled.copiedBuffer(body.getBytes());
-        ctx.writeAndFlush(echo );
+        ByteBuf echo = Unpooled.copiedBuffer((body+"\r\n").getBytes());
+        ctx.writeAndFlush(echo);
     }
 
     @Override
