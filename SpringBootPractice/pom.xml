@@ -28,6 +28,7 @@
         <module>JPA</module>
         <module>Quartz</module>
         <module>Logging</module>
+        <module>Sqlite</module>
     </modules>
 
     <properties>
