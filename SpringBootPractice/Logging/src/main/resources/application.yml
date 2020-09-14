@@ -5,4 +5,5 @@ spring:
     favicon:
       enabled: false
 logging:
-  file: D://log.log
+  file:
+    name: D://log.log
